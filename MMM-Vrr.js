@@ -88,7 +88,6 @@ Module.register("MMM-Vrr", {
 
         let urlApi = this.getUrl(false); // false - no lcd
         let retry = true;
-
         let dataRequest = new XMLHttpRequest();
         dataRequest.open("GET", urlApi, true);
         dataRequest.onreadystatechange = function () {
@@ -148,19 +147,16 @@ Module.register("MMM-Vrr", {
      */
     getDom: function () {
         let self = this;
-
         if(this.config.displayType === 'lcd'){
             let tableWrapper = document.createElement('img');
             tableWrapper.src = this.getUrl(true); // true - get LCD url
             tableWrapper.style = 'width: '+ this.config.lcdWith +'px';
             return tableWrapper;
         }
-
         let tableWrapper = document.createElement("table");
         tableWrapper.className = "small mmm-vrr-table";
 
-        if (self.dataRequest) {
-
+        if (self.dataRequest && self.dataRequest["error"] === null) {
             if (self.config.setWidth) {
                 tableWrapper.setAttribute('style', 'width:' + self.config.setWidth + 'px');
             }
